@@ -61,7 +61,7 @@ MySLM can be accessed in two ways:
 
 ## Contact
 - For **app-related inquiries**, contact: [joram.castro@deped.gov.ph](mailto:joram.castro@deped.gov.ph)
-- For **learning material concerns**, contact the LRMD Division of Island Garden City of Samal or DepEd Central Office.
+- For **learning material concerns**, contact the LRMD Division of the Island Garden City of Samal or DepEd Central Office.
 
 For more details, read the [Terms and Conditions](terms.html).
 
