@@ -1,0 +1,588 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="LRMD Division of the Island Garden City of Samal. View and download PDFs with offline support. Made with ❤️ by Joram V. Castro">
+  <link rel="stylesheet" href="style.css">
+  <link rel="manifest" href="manifest.json">
+  <title>MySLM</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: Arial, sans-serif;
+      background: #ffffff;
+      display: flex;
+      flex-direction: column;
+      height: 100vh;
+    }
+
+    /* mao ni ang sa splash screen styles */
+    #splash {
+      position: fixed;
+      width: 100vw;
+      height: 100vh;
+      background: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      z-index: 1000;
+      animation: fadeOut 0.8s ease-in-out 0.8s forwards;
+      overflow: hidden;
+    }
+
+    #splash img {
+      width: 150px;
+      opacity: 0;
+      animation: fadeInZoom 0.8s ease-in-out forwards;
+    }
+
+    @keyframes fadeInZoom {
+      0% { opacity: 0; transform: scale(1.5); }
+      100% { opacity: 1; transform: scale(1); }
+    }
+
+    @keyframes fadeOut {
+      100% { opacity: 0; visibility: hidden; }
+    }
+
+    /* mao ni ang main content styles */
+    #content {
+      display: none;
+      flex: 1;
+      overflow: hidden; 
+    }
+
+    header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      background: #ffffff;
+      text-align: center;
+      padding: 10px 0;
+      z-index: 1000;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    }
+
+    header img {
+      max-width: 100px;
+      height: auto;
+    }
+
+    .info-icon {
+      position: absolute;
+      right: 20px;
+      cursor: pointer;
+      font-style: italic;
+      font-size: 24px;
+      color: #1e3c72;
+    }
+
+    .refresh-button {
+      position: absolute;
+      left: 20px;
+      background: #1e3c72;
+      border: none;
+      padding: 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #ffffff;
+      font-size: 20px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 40px;
+      height: 40px;
+      box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+      transition: background 0.3s ease;
+    }
+
+    .refresh-button:hover {
+      background: #ffdd57;
+      color: #1e3c72;
+    }
+
+    footer {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      width: 100%;
+      background: #f0f0f0;
+      text-align: center;
+      padding: 10px 0;
+      z-index: 1000;
+      box-shadow: 0 -2px 5px rgba(0, 0, 0, 0.1);
+    }
+
+    footer p {
+      margin: 0;
+      color: #1e3c72;
+    }
+
+    main {
+      padding: 80px 20px 70px; 
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .intro {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+
+    .search input {
+      padding: 10px;
+      width: 80%;
+      max-width: 400px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    .available-files-section {
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+      overflow: hidden; 
+    }
+
+    .available-files-section h2 {
+      position: sticky;
+      top: 60px; 
+      background: #ffffff;
+      z-index: 999;
+      padding: 10px 0;
+      margin: 0;
+    }
+
+    #pdfList {
+      list-style-type: none;
+      padding: 0;
+      margin: 0;
+      overflow-y: auto; 
+      flex: 1;
+    }
+
+    #pdfList li {
+      margin: 10px 0;
+      padding: 10px;
+      background: #f9f9f9;
+      border: 1px solid #ddd;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    #pdfList li:hover {
+      background: #f1f1f1;
+    }
+
+    /* mao ni ang popup styles */
+    .popup {
+      display: none;
+      position: fixed;
+      top: 50%;
+      left: 50%;
+      transform: translate(-50%, -50%);
+      background-color: #ffffff;
+      border: 1px solid #ccc;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.5);
+      z-index: 10000;
+      width: 90%;
+      max-width: 800px;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+
+    .popup-content {
+      margin-bottom: 15px;
+      font-size: 16px;
+      color: #000000;
+    }
+
+    .popup-buttons {
+      text-align: right;
+    }
+
+    .popup button {
+      background-color: #ffdd57;
+      border: none;
+      padding: 10px 20px;
+      border-radius: 5px;
+      cursor: pointer;
+      color: #1e3c72;
+    }
+
+    .popup button:hover {
+      background-color: #ffcc00;
+    }
+
+    .close-btn {
+      position: absolute;
+      top: 10px;
+      right: 10px;
+      background: #ffdd57;
+      border: none;
+      padding: 5px 10px;
+      border-radius: 50%;
+      cursor: pointer;
+      color: #1e3c72;
+      font-size: 16px;
+    }
+
+    .close-btn:hover {
+      background: #ffcc00;
+    }
+
+    /* mao ni ang sa info popup specific styles */
+    .popup-content {
+      font-family: sans-serif;
+      line-height: 1.6;
+      margin: 20px;
+    }
+
+    .popup-content h1,
+    .popup-content h2 {
+      color: #333;
+    }
+
+    .popup-content a {
+      color: #007bff;
+      text-decoration: none;
+    }
+
+    .popup-content a:hover {
+      text-decoration: underline;
+    }
+
+    .popup-content ol {
+      list-style-type: decimal;
+      padding-left: 40px;
+    }
+
+    .popup-content ul {
+      list-style-type: disc;
+      padding-left: 40px;
+    }
+
+    .popup-content strong {
+      font-weight: bold;
+    }
+
+    .popup-content em {
+      font-style: italic;
+    }
+
+    .popup-content code {
+      background-color: #f5f5f5;
+      padding: 2px 4px;
+      border-radius: 4px;
+    }
+
+    .popup-content .collapsible {
+      background-color: #007bff;
+      color: white;
+      cursor: pointer;
+      padding: 20px;
+      width: 100%;
+      border: none;
+      text-align: left;
+      outline: none;
+      font-size: 18px;
+      font-weight: bold;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+    }
+
+    .popup-content .collapsible:hover {
+      background-color: #0056b3;
+    }
+
+    .popup-content .active, 
+    .popup-content .collapsible:active {
+      background-color: #0056b3;
+    }
+
+    .popup-content .content {
+      padding: 20px;
+      display: none;
+      overflow: hidden;
+      background-color: #f1f1f1;
+      font-size: 16px;
+      margin-top: 10px;
+      border-radius: 5px;
+      transition: max-height 0.3s ease-out, padding 0.3s ease-out;
+    }
+
+    .popup-content .content.show {
+      display: block;
+    }
+
+    .popup-content .collapsible:before {
+      content: "\25BC"; 
+      margin-right: 10px;
+    }
+
+    .popup-content .active:before {
+      content: "\25B2"; 
+    }
+
+    @media (max-width: 768px) {
+      .popup-content {
+        margin: 10px;
+      }
+
+      .popup-content h1,
+      .popup-content h2 {
+        font-size: 24px;
+      }
+
+      .popup-content .collapsible {
+        font-size: 16px;
+        padding: 15px;
+      }
+
+      .popup-content .content {
+        font-size: 14px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .popup-content h1 {
+        font-size: 20px;
+      }
+
+      .popup-content h2 {
+        font-size: 18px;
+      }
+
+      .popup-content .collapsible {
+        font-size: 14px;
+        padding: 12px;
+      }
+
+      .popup-content .content {
+        font-size: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <div id="splash">
+    <img src="icons/MYSLMHEADER.png" alt="MYSLM Logo">
+  </div>
+
+  <div id="content">
+    <header>
+      <button id="refreshButton" class="refresh-button">🔄</button>
+      <img src="icons/MYSLMHEADER.png" alt="MYSLM Image" id="headerIcon">
+      <div class="info-icon" onclick="showInfoPopup()">ℹ️</div>
+    </header>
+    <main>
+      <section class="intro">
+        <p>View and download PDF files, even offline!</p>
+      </section>
+
+      <section class="search">
+        <input type="text" id="searchInput" placeholder="Search PDFs..." />
+      </section>
+	
+	    <h3>
+        <font color="DarkBlue">Available Files</font> 
+        <span id="moduleCount" style="font-weight: bold; color: #1e3c72; margin-left: 5px;"></span> 
+      </h3>
+
+      <section class="available-files-section">
+        <ul id="pdfList"></ul>
+      </section>
+    </main>
+    <footer>
+      <p style="color:black;"><strong>My Self Learning Modules <script>document.write(new Date().getFullYear())</script></strong></p>
+    </footer>
+
+    <div id="infoPopup" class="popup">
+      <button class="close-btn" onclick="dismissInfoPopup()">×</button>
+      <div class="popup-content">
+        <center>
+          <h1 id="myslm-accessing-self-learning-modules">MySLM</h1>
+        </center><br>
+        <p><strong>MySLM</strong> provides easy access to self-learning modules (SLMs) for learners within the Schools Division of the Island Garden City of Samal. This project leverages learning materials from the LRMD Division of the Island Garden City of Samal and DepEd Central Office.</p>
+        <br>
+	<p><strong>Disclaimer:</strong> The app creator does not own any of the learning materials. All rights and credits belong to their respective owners at LRMD Division of the Island Garden City of Samal and DepEd Central Office. This project focuses solely on providing a convenient platform for accessing these materials.</p><br>
+
+        <button class="collapsible">How to Access MySLM </button>
+        <div class="content">
+              <p><strong>Web Browser:</strong> Open your web browser (use Chrome) and navigate to <a href="https://modulex.netlify.app/">https://modulex.netlify.app</a>.</p> <br>
+              <strong>Install (Windows):</strong> If you are using Google Chrome on Windows, you can install the app directly from your browser. When you visit the MySLM website, look for an "Install" button or icon (often a plus sign) near the address bar. Clicking this will install the app, providing a more integrated experience. <br><br>
+		<p><strong>Add to Dock (MacOS):</strong> Open Safari and access <a href="https://modulex.netlify.app">https://modulex.netlify.app</a> > click File > Add to Dock.</p><br>
+                <strong>Continue in Browser:</strong> If you choose not to install, or if you are using a different browser, you can still access and browse the content directly through your browser. <br><br>
+            <p><strong>iOS Devices:</strong> For iOS users, access the website at <a href="https://modulex.netlify.app">https://modulex.netlify.app</a> and then add the website to your home screen. This will create an app-like shortcut for convenient access.</p><br>
+		<p><strong>Android Devices:</strong> Android users can access MySLM via https://modulex.netlify.app in Chrome, with an <strong>install</strong> prompt upon first visit; if missed, <strong>reload</strong> the page to trigger it again, or continue using it directly in the browser.</p><br>
+		<p><strong>IMPORTANT:</strong> Kindly use either <strong>Chrome or Safari</strong> browser to open MySLM.</p>
+	</div><br>
+
+        <h2 id="finding-learning-materials"></h2>
+        <button class="collapsible">How to find SLMs</button>
+        <div class="content">
+          <p>To easily locate your desired modules, use the <strong>search field</strong> provided within the app. Simply type in keywords related to the module you're looking for.</p>
+        </div><br>
+
+        <h2 id="downloading-learning-materials"></h2>
+        <button class="collapsible">How to download SLMs</button>
+        <div class="content">
+          <p>To <strong>conserve device storage</strong>, MySLM does <em><strong>not</strong></em> automatically download all learning materials. Users must selectively download the modules they need.</p>
+            <br>
+		<p><strong>Download:</strong> Click the download button or the name of the module to save it locally to your device.
+            <strong>Offline Access:</strong> Once a module is downloaded, it can be accessed offline. <br><br>
+          
+          <p><strong>Important:</strong> Do <em>not</em> clear the cache and cookies of the app or browser, as this will delete the downloaded assets from your device. Ensure you have sufficient storage space for the modules you choose to download.</p>
+        </div><br>
+
+        <h2 id="refresh-content"></h2>
+        <button class="collapsible">How to refresh MySLM</button>
+        <div class="content">
+          <p><strong>To update the content of the app:</strong> You must click/tap the refresh icon located at the left-hand side of the app. This will reload the content and ensure you have the most up-to-date learning materials.</p>
+        </div><br>
+
+        <h2 id="troubleshooting"></h2>
+        <button class="collapsible">How to troubleshoot</button>
+        <div class="content">
+          <p><strong>Step 1:</strong> Try reloading the page. This often resolves minor glitches.</p>
+          <p><strong>Step 2:</strong> If reloading doesn't work, and the problem persists, you may need to clear the cache and cookies of your app and/or browser. <strong>This should be your last resort</strong>, as it will remove all downloaded assets, and you will have to download them again for offline access. Only do this if absolutely <strong>necessary</strong>.</p>
+        </div>
+
+        <h2 id="clearing-cache-and-cookies"></h2>
+        <button class="collapsible">Clear Cache and Cookies</button>
+        <div class="content">
+          <p>Here's how to clear the cache and cookies on common mobile platforms:</p><br>
+          <h3>Android (Chrome):</h3>
+            <p><strong>From Chrome:</strong>
+                <p><strong>Step 1:</strong> Open the Chrome app.</p>
+                <p><strong>Step 2:</strong> Tap the three vertical dots (More) in the top right corner.</p>
+                <p><strong>Step 3:</strong> Tap "History," then "Clear browsing data."</p>
+                <p><strong>Step 4:</strong> Select a time range (e.g., "Last hour," "All time").</p>
+                <p><strong>Step 5:</strong> Check the boxes for "Cookies and site data" and "Cached images and files."</p>
+                <p><strong>Step 6:</strong> Tap "Clear data."</p>
+                 </p><br>
+
+          <h3>iOS (Safari):</h3>
+            <p><strong>From Safari:</strong>
+               <p><strong>Step 1:</strong>  Open the Settings app.</p>
+               <p><strong>Step 2:</strong>  Tap "Safari."</p>
+               <p><strong>Step 3:</strong>  Tap "Clear History and Website Data."</p>
+               <p><strong>Step 4:</strong>  Confirm by tapping "Clear History and Data."</p>
+            </p>
+        </div><br>
+
+        <h2 id="additional-information"></h2>
+        <button class="collapsible">Additional Information</button>
+        <div class="content">
+          <p>
+            <strong>More Information:</strong> Tap/click the "ℹ️" button located at the right side of the header for more information about the app.
+          </p>
+        </div><br>
+
+        <h2 id="project-goals"></h2>
+	<button class="collapsible">Goals</button>
+	<div class="content">
+        <p>
+          Provide a centralized and easily accessible platform for students to access SLMs.
+          Facilitate offline access to learning materials, promoting flexible learning.
+          Optimize storage usage by allowing users to choose which modules to download.
+        </p>
+	</div><br>
+	      
+        <h2 id="intended-audience"></h2>
+	<button class="collapsible">Audience</button>
+	<div class="content">
+        <p>MySLM is intended for learners within the Schools Division of the Island Garden City of Samal. Educators and parents may also find this resource useful.</p>
+	</div><br>
+	      
+        <h2 id="contact"></h2>
+	<button class="collapsible">Contact MySLM</button>
+	<div class="content">
+        <p>For questions or feedback regarding MySLM, please send an email to <a href="mailto:joram.castro@deped.gov.ph">joram.castro@deped.gov.ph</a>. For inquiries regarding the learning materials, please contact the LRMD Division of the Island Garden City of Samal or DepEd Central Office.</p>
+	</div><br><br>
+	      
+        <p>For more information, please read the <a href="terms.html">terms and conditions.</a></p>
+        <br>
+	      <p style="color:black;"><strong>Developer:</strong> Joram V. Castro <i>MySLM</i><strong><script>document.write(new Date().getFullYear())</script></strong></p><br>
+       
+	      <center><a href="index.html"><strong>close</strong></a></center>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+
+  <script>
+    // mao ni ang sa splash screen animation
+    setTimeout(() => {
+      document.getElementById("splash").style.display = "none";
+      document.getElementById("content").style.display = "block";
+    }, 1100);
+
+    // importante kaayo ni. service worker registration ni
+    if ('serviceWorker' in navigator) {
+      navigator.serviceWorker.register('service-worker.js').then(() => {
+        console.log('Service Worker registered successfully.');
+      }).catch(error => {
+        console.error('Service Worker registration failed:', error);
+      });
+    }
+
+    // mao ni ang sa info popup
+    function showInfoPopup() {
+      const popup = document.getElementById('infoPopup');
+      if (popup) popup.style.display = 'block';
+    }
+
+    function dismissInfoPopup() {
+      const popup = document.getElementById('infoPopup');
+      if (popup) popup.style.display = 'none';
+    }
+
+    // Para ni sa refresh button
+    document.getElementById('refreshButton').addEventListener('click', function() {
+      if ('serviceWorker' in navigator) {
+        navigator.serviceWorker.getRegistrations().then(function(registrations) {
+          registrations.forEach(registration => registration.update());
+        });
+      }
+      location.reload(true);
+    });
+
+    // mao ni sa collapsible functionality
+    document.addEventListener('DOMContentLoaded', function() {
+      var coll = document.getElementsByClassName("collapsible");
+      for (var i = 0; i < coll.length; i++) {
+        coll[i].addEventListener("click", function() {
+          this.classList.toggle("active");
+          var content = this.nextElementSibling;
+          if (content.style.display === "block") {
+            content.style.display = "none";
+          } else {
+            content.style.display = "block";
+          }
+        });
+      }
+    });
+  </script>
+</body>
+</html>

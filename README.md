@@ -1,68 +1,97 @@
-# MySLM - Self-Learning Modules Access Platform
+# MySLM: Accessing Self-Learning Modules
 
-## Overview
-MySLM provides easy access to self-learning modules (SLMs) for students. Initially designed for Cogon National High School, it is also adaptable for other schools within the Schools Division of the Island Garden City of Samal. This platform integrates learning materials from the LRMD Division of Island Garden City of Samal and DepEd Central Office.
+MySLM provides easy access to self-learning modules (SLMs) for students, primarily designed for Cogon National High School but adaptable for other schools within the Schools Division of the Island Garden City of Samal.  This project leverages learning materials from the LRMDS Division of Island Garden City of Samal and DepEd Central Office.
 
-**Disclaimer:** The creator of this app does not own any of the learning materials. All rights and credits belong to their respective owners at LRMD Division of Island Garden City of Samal and DepEd Central Office. This project is solely a platform for convenient access to these materials.
+**Disclaimer:** The app creator does not own any of the learning materials. All rights and credits belong to their respective owners at LRMD Division of Island Garden City of Samal and DepEd Central Office.  This project focuses solely on providing a convenient platform for accessing these materials.
 
 ## Accessing MySLM
+
 MySLM can be accessed in two ways:
-1. **Web Browser**
-   - Open your browser and go to: [https://tinyurl.com/App-ModuleX](https://tinyurl.com/App-ModuleX)
-   - **Installation on Windows/macOS (Chrome):**
-     - If using Google Chrome, look for an "Install" button near the address bar.
-     - Clicking this will install the app for a more integrated experience.
-   - **Continue in Browser:** If using a different browser, you can still access all content.
-2. **iOS Devices**
-   - Access the site at [https://tinyurl.com/App-ModuleX](https://tinyurl.com/App-ModuleX)
-   - Add the website to your home screen for app-like functionality.
+
+1.  **Web Browser:** Open your web browser and navigate to https://tinyurl.com/App-ModuleX.
+
+    *   **Install (Windows/macOS Chrome):** If you are using Google Chrome on Windows or macOS, you can install the app directly from your browser.  When you visit the MySLM website, look for an "Install" button or icon (often a plus sign) near the address bar. Clicking this will install the app, providing a more integrated experience.
+
+    *   **Continue in Browser:** If you choose not to install, or if you are using a different browser, you can still access and browse the content directly through your browser.
+
+2.  **iOS Devices:** For iOS users, access the website at https://tinyurl.com/App-ModuleX and then add the website to your home screen. This will create an app-like shortcut for convenient access.
 
 ## Finding Learning Materials
-- Use the **search field** within the app to locate specific modules.
+
+To easily locate your desired modules, use the **search field** provided within the app.  Simply type in keywords related to the module you're looking for.
 
 ## Downloading Learning Materials
-- Modules are **not** automatically downloaded.
-- Click the download button or module name to save locally.
-- **Offline Access:** Downloaded modules remain accessible without internet.
-- **Important:** Do **not** clear the app's cache and cookies, as this will delete downloaded materials.
 
-## Refreshing Content
-- Click/tap the **refresh icon** in the app to reload and update content.
+To conserve device storage, MySLM does *not* automatically download all learning materials.  Users must selectively download the modules they need.
+
+1.  **Download:** Click the download button or the name of the module to save it locally to your device.
+
+2.  **Offline Access:** Once a module is downloaded, it can be accessed offline.
+
+**Important:** Do *not* clear the cache and cookies of the app or browser, as this will delete the downloaded assets from your device.  Ensure you have sufficient storage space for the modules you choose to download.
 
 ## Troubleshooting
-1. **Try reloading the page.**
-2. **Clear cache and cookies** (only if necessary, as this will remove all downloaded modules).
+
+If you encounter any issues with MySLM, please try the following steps:
+
+1.  **Reload:** First, try reloading the page. This often resolves minor glitches.
+
+2.  **Clear Cache and Cookies (Last Resort):** If reloading doesn't work, and the problem persists, you may need to clear the cache and cookies of your app and/or browser.  **This should be your last resort**, as it will remove all downloaded assets, and you will have to download them again for offline access.  Only do this if absolutely necessary.
 
 ## Clearing Cache and Cookies
-### Android (Chrome)
-1. Open Chrome and tap the three-dot menu.
-2. Go to "History" → "Clear browsing data."
-3. Select "Cookies and site data" & "Cached images and files."
-4. Tap "Clear data."
 
-### iOS (Safari)
-1. Open **Settings** → **Safari**.
-2. Tap "Clear History and Website Data."
-3. Confirm by tapping "Clear History and Data."
+Here's how to clear the cache and cookies on common mobile platforms, including clearing from device settings:
 
-## Additional Features
-- Tap the **"i" button** for more app information.
-- Tap the **header picture** or **footer name** to view Cogon National High School's offerings.
+**Android (Chrome):**
+
+*   **From Chrome:**
+    1.  Open the Chrome app.
+    2.  Tap the three vertical dots (More) in the top right corner.
+    3.  Tap "History," then "Clear browsing data."
+    4.  Select a time range (e.g., "Last hour," "All time").
+    5.  Check the boxes for "Cookies and site data" and "Cached images and files."
+    6.  Tap "Clear data."
+*   **From Settings (May vary by device):**
+    1.  Open the Settings app.
+    2.  Go to "Apps" or "Applications."
+    3.  Find and select "Chrome."
+    4.  Tap "Storage" or "Storage & cache."
+    5.  Tap "Clear cache" and "Clear data" or "Clear storage." (Clearing data will also clear cache and cookies)
+
+**iOS (Safari):**
+
+*   **From Safari (Clears history, cookies, and data):**
+    1.  Open the Settings app.
+    2.  Tap "Safari."
+    3.  Tap "Clear History and Website Data."
+    4.  Confirm by tapping "Clear History and Data."
+*   **From Settings (For Website Data):**
+    1.  Open the Settings app.
+    2.  Tap "Safari."
+    3.  Tap "Advanced."
+    4.  Tap "Website Data."
+    5.  You can then choose to remove specific website data or all website data.
+
+**Important Notes:**
+
+*   Clearing data may log you out of websites.
+*   The exact steps may vary slightly depending on your Android version, device, and browser.
+
+## Additional Information
+
+*   **More Information:** Tap/click the "i" button located at the right side of the header for more information about the app.
+*   **Cogon National High School Offerings:** Tap/click the header picture and the footer name to see what Cogon National High School offers.
 
 ## Project Goals
-- Centralized and easy access to self-learning modules.
-- Offline access for flexible learning.
-- Optimize storage by allowing selective downloads.
+
+*   Provide a centralized and easily accessible platform for students to access SLMs.
+*   Facilitate offline access to learning materials, promoting flexible learning.
+*   Optimize storage usage by allowing users to choose which modules to download.
 
 ## Intended Audience
-- Primary users: **Students of Cogon National High School**.
-- Other schools in the **Schools Division of the Island Garden City of Samal** can also use this platform.
-- **Educators and parents** may also find it useful.
+
+This application is primarily intended for students of Cogon National High School and other schools within the Schools Division of the Island Garden City of Samal.  Educators and parents may also find this resource useful.
 
 ## Contact
-- For **app-related inquiries**, contact: [joram.castro@deped.gov.ph](mailto:joram.castro@deped.gov.ph)
-- For **learning material concerns**, contact the LRMD Division of the Island Garden City of Samal or DepEd Central Office.
 
-For more details, read the [Terms and Conditions](terms.html).
-
-[Back to Home](index.html)
+For any questions or feedback regarding the MySLM app itself, please send an email to joram.castro@deped.gov.ph.  For inquiries regarding the learning materials themselves, please contact the LRMD Division of Island Garden City of Samal or DepEd Central Office.

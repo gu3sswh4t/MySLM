@@ -1,0 +1,21 @@
+{
+  "name": "MySLM",
+  "short_name": "MySLM",
+  "description": "Cogon National High School - 304223. View and download PDFs with offline support.",
+  "start_url": "index.html",
+  "display": "standalone",
+  "background_color": "#0078d7",
+  "theme_color": "#0078d7",
+  "icons": [
+    {
+      "src": "icons/MYSLM.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icons/MYSLMHEADER.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
